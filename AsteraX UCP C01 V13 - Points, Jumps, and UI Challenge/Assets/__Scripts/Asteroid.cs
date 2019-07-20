@@ -18,6 +18,11 @@ public class Asteroid : MonoBehaviour
     public int          size = 3;
     public bool         immune = false;
 
+    [SerializeField]
+    private ScoreManager scoreManager;
+
+    private AsteroidsScriptableObject asteroidSO;
+
     Rigidbody           rigid; // protected
     OffScreenWrapper    offScreenWrapper;
 
@@ -28,6 +33,8 @@ public class Asteroid : MonoBehaviour
 #endif
     private void Awake()
     {
+        asteroidSO = FindObjectOfType<AsteraX>().asteroidsSO;
+        scoreManager = FindObjectOfType<ScoreManager>();
         rigid = GetComponent<Rigidbody>();
         offScreenWrapper = GetComponent<OffScreenWrapper>();
     }
@@ -194,6 +201,8 @@ public class Asteroid : MonoBehaviour
             {
                 Destroy(otherGO);
             }
+
+            scoreManager.Score += asteroidSO.pointsForAsteroidSize[size];
 
             if (size > 1)
             {
