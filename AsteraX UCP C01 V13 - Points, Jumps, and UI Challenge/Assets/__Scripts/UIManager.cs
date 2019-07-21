@@ -14,4 +14,9 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = score.ToString();
     }
+
+    public void SetJumpsUI(int jumps)
+    {
+        jumpsText.text = jumps.ToString();
+    }
 }
