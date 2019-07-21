@@ -8,6 +8,9 @@ using UnityStandardAssets.CrossPlatformInput;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerShip : MonoBehaviour
 {
+
+    private JumpsManager jumpsManager;
+
     // This is a somewhat protected private singleton for PlayerShip
     static private PlayerShip   _S;
     static public PlayerShip    S
@@ -28,6 +31,7 @@ public class PlayerShip : MonoBehaviour
 
     [Header("Set in Inspector")]
     public float        shipSpeed = 10f;
+    public float        secondsToRespawn = 3f;
     public GameObject   bulletPrefab;
 
     Rigidbody           rigid;
@@ -35,6 +39,8 @@ public class PlayerShip : MonoBehaviour
 
     void Awake()
     {
+        jumpsManager = FindObjectOfType<JumpsManager>();
+
         S = this;
 
         // NOTE: We don't need to check whether or not rigid is null because of [RequireComponent()] above
@@ -92,5 +98,17 @@ public class PlayerShip : MonoBehaviour
         {
             return S.transform.position;
         }
+    }
+
+    public void Respawn()
+    {
+        jumpsManager.Jumps -= 1;
+        gameObject.SetActive(false);
+        Invoke("Spawn", secondsToRespawn);
+    }
+
+    private void Spawn()
+    {
+        gameObject.SetActive(true);
     }
 }

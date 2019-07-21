@@ -23,7 +23,7 @@ public class JumpsManager : MonoBehaviour
         SetJumps();
     }
 
-    public void SetJumps()
+    private void SetJumps()
     {
         uiManager.SetJumpsUI(jumps);
     }

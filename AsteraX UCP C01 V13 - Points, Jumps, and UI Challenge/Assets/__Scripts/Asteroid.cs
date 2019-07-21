@@ -220,6 +220,11 @@ public class Asteroid : MonoBehaviour
                 }
             }
 
+            if(otherGO.tag == "Player")
+            {
+                otherGO.GetComponent<PlayerShip>().Respawn();
+            }
+
             Destroy(gameObject);
         }
     }
