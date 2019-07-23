@@ -107,8 +107,8 @@ public class PlayerShip : MonoBehaviour
     /// </summary>
     public void Respawn()
     {
-        jumpsManager.Jumps--;
         gameObject.SetActive(false);
+        jumpsManager.Jumps--;
         Invoke("Spawn", secondsToRespawn);
     }
 
