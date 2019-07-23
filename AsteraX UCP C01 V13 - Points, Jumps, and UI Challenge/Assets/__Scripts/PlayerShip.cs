@@ -127,12 +127,13 @@ public class PlayerShip : MonoBehaviour
     /// <returns>Safe position to spawn</returns>
     private Vector3 CalculateSpawnPosition()
     {
+        int safeDistance = 5;
         Vector3 spawnPosition = Vector3.zero;
         foreach (Asteroid asteroid in FindObjectsOfType<Asteroid>()) {
             do
             {
                 spawnPosition = RandomizeSpawnPosition();
-            } while (Vector3.Distance(spawnPosition, asteroid.transform.position) <= 1);
+            } while (Vector3.Distance(spawnPosition, asteroid.transform.position) <= safeDistance);
         }
         return spawnPosition;
     }

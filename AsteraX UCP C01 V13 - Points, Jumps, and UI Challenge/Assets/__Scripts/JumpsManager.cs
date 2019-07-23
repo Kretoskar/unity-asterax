@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Handles managing jumps(player's lifes)
@@ -22,6 +23,11 @@ public class JumpsManager : MonoBehaviour
         set
         {
             jumps = value;
+            if (jumps <= 0)
+            {
+                jumps = 0;
+                Invoke("Die", 1);
+            }
             SetJumps();
         }
     }
@@ -37,5 +43,10 @@ public class JumpsManager : MonoBehaviour
     private void SetJumps()
     {
         uiManager.SetJumpsUI(jumps);
+    }
+
+    private void Die()
+    {
+        SceneManager.LoadScene(1);
     }
 }

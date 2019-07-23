@@ -31,10 +31,11 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Setup score UI
+    /// Setup score UI and playerprefs
     /// </summary>
     public void SetScore()
     {
         uiManager.SetScoreUI(score);
+        PlayerPrefs.SetInt("Score", score);
     }
 }
