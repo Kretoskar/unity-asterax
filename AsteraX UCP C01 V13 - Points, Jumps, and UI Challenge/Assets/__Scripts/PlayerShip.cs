@@ -127,7 +127,7 @@ public class PlayerShip : MonoBehaviour
     /// <returns>Safe position to spawn</returns>
     private Vector3 CalculateSpawnPosition()
     {
-        int safeDistance = 5;
+        int safeDistance = 2;
         Vector3 spawnPosition = Vector3.zero;
         foreach (Asteroid asteroid in FindObjectsOfType<Asteroid>()) {
             do
@@ -144,8 +144,10 @@ public class PlayerShip : MonoBehaviour
     /// <returns>Random vector3 in screen bounds</returns>
     private Vector3 RandomizeSpawnPosition()
     {
-        float x = UnityEngine.Random.Range(-15, 15);
-        float y = UnityEngine.Random.Range(-8, 8);
+        int xScreenBound = 15;
+        int yScreenBound = 8;
+        float x = UnityEngine.Random.Range(-xScreenBound, xScreenBound);
+        float y = UnityEngine.Random.Range(-yScreenBound, yScreenBound);
         return new Vector3(x, y, 0);
     }
 }
