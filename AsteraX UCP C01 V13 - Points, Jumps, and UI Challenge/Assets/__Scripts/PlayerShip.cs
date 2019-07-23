@@ -1,5 +1,6 @@
 ﻿#define DEBUG_PlayerShip_RespawnNotifications
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,15 +101,50 @@ public class PlayerShip : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Respawns player's ship in a safe place at the screen
+    /// Safe place means a place, where there are no asteroids
+    /// </summary>
     public void Respawn()
     {
-        jumpsManager.Jumps -= 1;
+        jumpsManager.Jumps--;
         gameObject.SetActive(false);
         Invoke("Spawn", secondsToRespawn);
     }
 
+    /// <summary>
+    /// Spawn the player ship
+    /// </summary>
     private void Spawn()
     {
+        gameObject.transform.position = CalculateSpawnPosition();
         gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// Calculate the safe position to spawn
+    /// </summary>
+    /// <returns>Safe position to spawn</returns>
+    private Vector3 CalculateSpawnPosition()
+    {
+        Vector3 spawnPosition = Vector3.zero;
+        foreach (Asteroid asteroid in FindObjectsOfType<Asteroid>()) {
+            do
+            {
+                spawnPosition = RandomizeSpawnPosition();
+            } while (Vector3.Distance(spawnPosition, asteroid.transform.position) <= 1);
+        }
+        return spawnPosition;
+    }
+
+    /// <summary>
+    /// Get a random spawn position in screen bounds
+    /// </summary>
+    /// <returns>Random vector3 in screen bounds</returns>
+    private Vector3 RandomizeSpawnPosition()
+    {
+        float x = UnityEngine.Random.Range(-15, 15);
+        float y = UnityEngine.Random.Range(-8, 8);
+        return new Vector3(x, y, 0);
     }
 }
