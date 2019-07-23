@@ -220,6 +220,12 @@ public class Asteroid : MonoBehaviour
                 }
             }
 
+            //Respawn the player if he hits the asteroid
+            if(otherGO.tag == "Player")
+            {
+                otherGO.GetComponent<PlayerShip>().Respawn();
+            }
+
             Destroy(gameObject);
         }
     }
